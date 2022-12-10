@@ -1,2 +1,7 @@
 ---
 # defaults file for mysql_php_packgages
+mysql_user_name:       exo
+mysql_user_password:   exoexoexo
+
+mysql_root_password:   exoexoexo
+

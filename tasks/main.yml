@@ -21,16 +21,16 @@
     password: exoexoexo
     login_unix_socket:  /var/run/mysqld/mysqld.sock
     login_user: root
-    login_password: exoexoexo
+    login_password: {{ mysql_root_password}}
   become: yes
 
 - name: create db user
   mysql_user:
-    name: exo
-    password: exoexoexo
+    name: {{ mysql_user_name }}
+    password: {{ mysql_user_password }}
     priv: " *.*:ALL "
     login_user: root
-    login_password: exoexoexo
+    login_password: {{mysql_root_password}}
   become: yes
 
 - name: start mysql service
