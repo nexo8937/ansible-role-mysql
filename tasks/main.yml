@@ -3,13 +3,18 @@
 - name: install packgages
   apt:
    name:
-       - pip
-       - php
        - php-mysql
        - mariadb-server
        - mariadb-client
    update_cache: yes
   become: yes
+
+- name: install pip
+  apt:
+    name: python3-pip
+    state: latest
+  become: yes
+
 
 - name: install  python requirments
   pip:
@@ -20,19 +25,19 @@
 - name: set mysql root user pass
   mysql_user:
     name: root
-    password: exoexoexo
+    password: "{{ mysql_root_password }}"
     login_unix_socket:  /var/run/mysqld/mysqld.sock
     login_user: root
-    login_password: exoexoexo
+    login_password: "{{ mysql_root_password }}"
   become: yes
 
 - name: create db user
   mysql_user:
-    name: exo
-    password: exoexoexo
+    name: "{{ mysql_user_name }}"
+    password: "{{ mysql_user_password }}"
     priv: " *.*:ALL "
     login_user: root
-    login_password: exoexoexo
+    login_password: "{{mysql_root_password}}"
   become: yes
 
 - name: start mysql service
